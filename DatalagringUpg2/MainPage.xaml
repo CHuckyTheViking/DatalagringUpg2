@@ -1,0 +1,58 @@
+﻿<Page
+    x:Class="DatalagringUpg2.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DatalagringUpg2"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:models="using:DataAccessLibrary.Models"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="CompletedCollection" Source="{x:Bind completedViewModel.completed}" />
+        <CollectionViewSource x:Name="StartedCollection" Source="{x:Bind startedViewModel.started}" />
+    </Page.Resources>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Grid.Column="0">
+            <Button x:Name="btnAddIssue" Content="Add issue" FontSize="30" HorizontalAlignment="Stretch" Height="100" Margin="5,15" Click="btnAddIssue_Click"/>
+            <Button x:Name="btnShowIssues" Content="Show issues" FontSize="30" HorizontalAlignment="Stretch" Height="100" Margin="5,15" Click="btnShowIssues_Click"/>
+        </StackPanel>
+
+        <Grid Grid.Column="1">
+            <ListView x:Name="lvStartedIssue" ItemsSource="{Binding Source={StaticResource StartedCollection}}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Issue">
+                        <TextBlock Text="{x:Bind CustomerId}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <ListView x:Name="lvCompletedIssue" ItemsSource="{Binding Source={StaticResource CompletedCollection}}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Issue">
+                        <TextBlock Text="{x:Bind CustomerId}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+
+
+
+
+
+
+    </Grid>
+</Page>
