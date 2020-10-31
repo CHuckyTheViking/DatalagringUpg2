@@ -23,7 +23,7 @@ namespace DatalagringUpg2
     public sealed partial class MainPage : Page
     {
         private static string connectionString =
-            @"Server=tcp:jesper-sqldatabase.database.windows.net,1433;Initial Catalog=upg2dbjesper;Persist Security Info=False;User ID=SqlAdmin;Password=kaliberSNUS1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            @"Server=tcp:jesper-sqldatabase.database.windows.net,1433;Initial Catalog=upg2dbjesper;Persist Security Info=False;User ID=SqlAdmin;Password=XXXXXXX;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         public static string ConnectionString { get => connectionString; set => connectionString = value; }
 
         public StartedViewModel startedViewModel { get; set; }

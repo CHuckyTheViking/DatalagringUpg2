@@ -14,7 +14,7 @@ namespace DataAccessLibrary.Services
     {
         public static List<Issue> contextissues()
         {
-            //var issues = new List<Issue>();
+            
             using (var db = new Context())
             {
                 var issues = (from i in db.Issue select i).ToList();
