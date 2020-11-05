@@ -134,8 +134,8 @@
     <Compile Include="Views\AddIssueView.xaml.cs">
       <DependentUpon>AddIssueView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ItemDetailView2.xaml.cs">
-      <DependentUpon>ItemDetailView2.xaml</DependentUpon>
+    <Compile Include="Views\ItemDetailView.xaml.cs">
+      <DependentUpon>ItemDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoadIssuesView.xaml.cs">
       <DependentUpon>LoadIssuesView.xaml</DependentUpon>
@@ -148,6 +148,9 @@
     </Compile>
     <Compile Include="Views\StartingAppView.xaml.cs">
       <DependentUpon>StartingAppView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdateSelectedItemView.xaml.cs">
+      <DependentUpon>UpdateSelectedItemView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -178,7 +181,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ItemDetailView2.xaml">
+    <Page Include="Views\ItemDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StartingAppView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdateSelectedItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

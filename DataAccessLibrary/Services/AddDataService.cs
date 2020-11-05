@@ -16,7 +16,7 @@ namespace DataAccessLibrary.Services
             int cstmerid = 0;
             int categoryid = 0;
             int situationid = 0;
-            using (var db = new Context())
+            await using (var db = new Context())
             {
                 if (cstmer != null)
                 {
@@ -46,7 +46,6 @@ namespace DataAccessLibrary.Services
                             categoryid = categoryset.CategoryId;
                         }
 
-
                     }
                     catch  {}
                 }
@@ -55,13 +54,11 @@ namespace DataAccessLibrary.Services
                 {
                     try
                     {
-
                         var situationset = db.Situation.FirstOrDefault(sit => sit.Situation1 == situation);
                         if (situationset != null)
                         {
                             situationid = situationset.SituationId;
                         }
-
                     }
                     catch { }
                 }
@@ -82,20 +79,109 @@ namespace DataAccessLibrary.Services
                     newIssue.Picture.Add(new Picture { Picture1 = picture });
                 }
 
-
-
-
-
                 db.Issue.Add(newIssue);
-                db.SaveChanges();
-
+                await db.SaveChangesAsync();
 
             }
+        }
 
+        
+        public static async Task<string> AddCommentToIssueAsync(int id, string comment, DateTime dateTime)
+        {
+            string response = null;
+            try
+            {
+                await using (var db = new Context())
+                {
+                    Comment cmt = new Comment { Comment1 = comment, CommentTime = dateTime, IssueId = id };
 
+                    db.Comment.Add(cmt);
+                    await db.SaveChangesAsync();
+                    response = "Succes!";
+                }
+                
+            }
+            catch 
+            {
+                
+                response = "Failed!";                
+            }
+            return response;
 
         }
 
+        public static async Task<string> UpdateCustomerAsync(string issueText, string _customer, string _situation, string _category, int id)
+        {
+            string response = null;
+            try
+            {
+                if (issueText != null)
+                {
+                    await using (var db = new Context())
+                    {
 
+                        Issue issue = db.Issue.First(i => i.IssueId == id);
+
+                        issue.Issue1 = issueText;
+                        await db.SaveChangesAsync();
+
+                    }
+                }
+                if (_customer != null)
+                {
+                    await using (var db = new Context())
+                    {
+
+                        Customer customer = db.Customer.First(c => c.CustomerName == _customer);
+
+                        int customerId = customer.CustomerId;
+
+                        Issue issue = db.Issue.First(i => i.IssueId == id);
+
+                        issue.CustomerId = customerId;
+
+                        await db.SaveChangesAsync();
+                    }
+                }
+                if (_situation != null)
+                {
+                    await using (var db = new Context())
+                    {
+
+                        Situation situation = db.Situation.First(s => s.Situation1 == _situation);
+
+                        int situationId = situation.SituationId;
+
+                        Issue issue = db.Issue.First(i => i.IssueId == id);
+
+                        issue.SituationId = situationId;
+
+                        await db.SaveChangesAsync();
+                    }
+                }
+                if (_category != null)
+                {
+                    await using (var db = new Context())
+                    {
+                        Category category = db.Category.First(c => c.Category1 == _category);
+
+                        int categoryId = category.CategoryId;
+
+                        Issue issue = db.Issue.First(i => i.IssueId == id);
+
+                        issue.CategoryId = categoryId;
+
+                        await db.SaveChangesAsync();
+                    }
+                }
+
+                response = "Succes!";
+            }
+            catch 
+            {
+                response = "Failed!";
+            }
+            return response;
+        }
     }
 }

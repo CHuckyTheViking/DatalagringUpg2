@@ -34,7 +34,7 @@ namespace DatalagringUpg2.Views
         }
         private void issueView_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewIssueFrame.Navigate(typeof(ItemDetailView2), detailId);
+            ViewIssueFrame.Navigate(typeof(ItemDetailView), detailId);
         }
 
         private void issueView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -47,12 +47,12 @@ namespace DatalagringUpg2.Views
                 switch (view.Tag.ToString())
                 {
                     
-                    case "ItemDetailView2":
-                        ViewIssueFrame.Navigate(typeof(ItemDetailView2), detailId);
+                    case "ItemDetailView":
+                        ViewIssueFrame.Navigate(typeof(ItemDetailView), detailId);
                         break;
 
-                    case "StartingAppView":
-                        ViewIssueFrame.Navigate(typeof(StartingAppView));
+                    case "UpdateSelectedItemView":
+                        ViewIssueFrame.Navigate(typeof(UpdateSelectedItemView), detailId);
                         break;
                 }
             }

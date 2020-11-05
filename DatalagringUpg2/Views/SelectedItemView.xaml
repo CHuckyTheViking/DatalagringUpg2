@@ -12,7 +12,7 @@
         <NavigationView x:Name="issueView" Loaded="issueView_Loaded" SelectionChanged="issueView_SelectionChanged">
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Document" Content="Information about issue" FontSize="15" Tag="ItemDetailView2"/>
-                <NavigationViewItem Icon="Comment" Content="Change information" FontSize="15" Tag="StartingAppView"/>
+                <NavigationViewItem Icon="Comment" Content="Update information" FontSize="15" Tag="UpdateSelectedItemView"/>
             </NavigationView.MenuItems>
             <ScrollViewer>
                 <Frame x:Name="ViewIssueFrame" />

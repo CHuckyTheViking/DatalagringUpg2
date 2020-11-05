@@ -26,10 +26,10 @@ namespace DatalagringUpg2.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ItemDetailView2 : Page
+    public sealed partial class ItemDetailView : Page
     {
         private static int detailId { get; set; }
-        public ItemDetailView2()
+        public ItemDetailView()
         {
             
             this.InitializeComponent();
