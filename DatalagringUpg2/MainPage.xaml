@@ -6,20 +6,31 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:models="using:DataAccessLibrary.Models"
+    xmlns:views="using:DatalagringUpg2.Views"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.Resources>
-        <CollectionViewSource x:Name="CompletedCollection" Source="{x:Bind completedViewModel.completed}" />
-        <CollectionViewSource x:Name="StartedCollection" Source="{x:Bind startedViewModel.started}" />
-    </Page.Resources>
+    
 
 
     <Grid>
-        <Grid.ColumnDefinitions>
+
+        <NavigationView x:Name="navigationView" Loaded="navigationView_Loaded" SelectionChanged="navigationView_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="List" Content="Show Issues" FontSize="20" Tag="LoadIssuesView"/>
+                <NavigationViewItem Icon="Add" Content="Add an issue" FontSize="20" Tag="AddIssueView"/>
+            </NavigationView.MenuItems>
+            <ScrollViewer>
+                <Frame x:Name="ViewFrame" />
+            </ScrollViewer>
+        </NavigationView>
+
+
+
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            
         </Grid.ColumnDefinitions>
 
 
@@ -28,25 +39,7 @@
             <Button x:Name="btnShowIssues" Content="Show issues" FontSize="30" HorizontalAlignment="Stretch" Height="100" Margin="5,15" Click="btnShowIssues_Click"/>
         </StackPanel>
 
-        <Grid Grid.Column="1">
-            <ListView x:Name="lvStartedIssue" ItemsSource="{Binding Source={StaticResource StartedCollection}}" >
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Issue">
-                        <TextBlock Text="{x:Bind CustomerId}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
-
-        <Grid Grid.Column="2">
-            <ListView x:Name="lvCompletedIssue" ItemsSource="{Binding Source={StaticResource CompletedCollection}}" >
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Issue">
-                        <TextBlock Text="{x:Bind CustomerId}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
+        <Frame Grid.Column="1" x:Name="frame"/>-->
 
 
 

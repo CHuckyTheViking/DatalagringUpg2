@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="DatalagringUpg2.Views.LoadIssuesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DatalagringUpg2.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:models="using:DataAccessLibrary.Models"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="CompletedCollection" Source="{x:Bind completedViewModel.completed}" />
+        <CollectionViewSource x:Name="StartedCollection" Source="{x:Bind startedViewModel.started}" />
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+
+        <ListView Grid.Column="0" Margin="5" x:Name="lvStartedIssue" DoubleTapped="lvStartedIssue_DoubleTapped" IsDoubleTapEnabled="True"  ItemsSource="{Binding Source={StaticResource StartedCollection}}" >
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:Issue">
+                    <TextBlock Text="{x:Bind LvDetails}" FontSize="18"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+
+        
+        <ListView Grid.Column="1" Margin="5" x:Name="lvCompletedIssue" DoubleTapped="lvCompletedIssue_DoubleTapped" IsDoubleTapEnabled="True"  ItemsSource="{Binding Source={StaticResource CompletedCollection}}" >
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:Issue">
+                    <TextBlock Text="{x:Bind LvDetails}" FontSize="18"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Frame x:Name="SelectedFrame" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+
+
+
+    </Grid>
+</Page>

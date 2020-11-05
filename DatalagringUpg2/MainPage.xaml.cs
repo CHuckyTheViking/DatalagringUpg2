@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary.Services;
 using DataAccessLibrary.ViewModels;
+using DatalagringUpg2.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,48 +23,49 @@ namespace DatalagringUpg2
    
     public sealed partial class MainPage : Page
     {
-        private static string connectionString =
-            @"Server=tcp:jesper-sqldatabase.database.windows.net,1433;Initial Catalog=upg2dbjesper;Persist Security Info=False;User ID=SqlAdmin;Password=XXXXXXX;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-        public static string ConnectionString { get => connectionString; set => connectionString = value; }
-
-        public StartedViewModel startedViewModel { get; set; }
-        public CompletedViewModel completedViewModel { get; set; }
-
-
-
-
-
-
 
         public MainPage()
         {
             this.InitializeComponent();
-
-            startedViewModel = new StartedViewModel();
-            completedViewModel = new CompletedViewModel();
         }
 
-        private void btnAddIssue_Click(object sender, RoutedEventArgs e)
-        {
+       
 
+        private void navigationView_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewFrame.Navigate(typeof(StartingAppView));
         }
 
-        private void btnShowIssues_Click(object sender, RoutedEventArgs e)
+        private void navigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            //var issues = GetDataService.GetGoodIssue(connectionString);
-            var issues = GetDataService.contextissues();
-            foreach (var issue in issues)
+            if (args.IsSettingsSelected)
             {
-                if (issue.SituationId == 4)
+                ViewFrame.Navigate(typeof(SettingsView));
+            }
+            else
+            {
+                NavigationViewItem view = args.SelectedItem as NavigationViewItem;
+
+                switch (view.Tag.ToString())
                 {
-                    completedViewModel.completed.Add(issue);
+                    case "LoadIssuesView":
+                        ViewFrame.Navigate(typeof(LoadIssuesView));
+                        navigationView.IsPaneOpen = false;
+                        break;
+
+                    case "AddIssueView":
+                        ViewFrame.Navigate(typeof(AddIssueView));
+                        navigationView.IsPaneOpen = false;
+                        break;
                 }
-                else
-                {
-                    startedViewModel.started.Add(issue);
-                }
+
+
             }
 
+
         }
+
+        
+     
     }
 }

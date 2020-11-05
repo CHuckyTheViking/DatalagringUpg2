@@ -39,7 +39,7 @@ namespace DataAccessLibrary.Models
                     .WithMany(p => p.Comment)
                     .HasForeignKey(d => d.IssueId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Comment__issue_i__6E01572D");
+                    .HasConstraintName("FK__Comment__issue_i__693CA210");
             });
 
             modelBuilder.Entity<Issue>(entity =>
@@ -48,38 +48,28 @@ namespace DataAccessLibrary.Models
                     .WithMany(p => p.Issue)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Issue__category___6A30C649");
-
-                entity.HasOne(d => d.CommentNavigation)
-                    .WithMany(p => p.IssueNavigation)
-                    .HasForeignKey(d => d.CommentId)
-                    .HasConstraintName("FK__Issue__comment_i__6D0D32F4");
+                    .HasConstraintName("FK__Issue__category___6754599E");
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Issue)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Issue__customer___693CA210");
-
-                entity.HasOne(d => d.Picture)
-                    .WithMany(p => p.Issue)
-                    .HasForeignKey(d => d.PictureId)
-                    .HasConstraintName("FK__Issue__picture_i__6C190EBB");
+                    .HasConstraintName("FK__Issue__customer___66603565");
 
                 entity.HasOne(d => d.Situation)
                     .WithMany(p => p.Issue)
                     .HasForeignKey(d => d.SituationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Issue__situation__6B24EA82");
+                    .HasConstraintName("FK__Issue__situation__68487DD7");
             });
 
             modelBuilder.Entity<Picture>(entity =>
             {
-                entity.HasOne(d => d.IssueNavigation)
-                    .WithMany(p => p.PictureNavigation)
+                entity.HasOne(d => d.Issue)
+                    .WithMany(p => p.Picture)
                     .HasForeignKey(d => d.IssueId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Picture__issue_i__6EF57B66");
+                    .HasConstraintName("FK__Picture__issue_i__6A30C649");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="DatalagringUpg2.Views.SelectedItemView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DatalagringUpg2.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <NavigationView x:Name="issueView" Loaded="issueView_Loaded" SelectionChanged="issueView_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="Document" Content="Information about issue" FontSize="15" Tag="ItemDetailView2"/>
+                <NavigationViewItem Icon="Comment" Content="Change information" FontSize="15" Tag="StartingAppView"/>
+            </NavigationView.MenuItems>
+            <ScrollViewer>
+                <Frame x:Name="ViewIssueFrame" />
+            </ScrollViewer>
+        </NavigationView>
+
+
+    </Grid>
+</Page>

@@ -10,6 +10,8 @@ namespace DataAccessLibrary.ViewModels
 {
     public class CompletedViewModel
     {
+        
+       
         public ObservableCollection<Issue> completed { get; set; }
 
         public CompletedViewModel()

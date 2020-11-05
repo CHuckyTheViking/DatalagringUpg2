@@ -15,6 +15,7 @@ namespace DataAccessLibrary.Models
         [Key]
         [Column("situation_id")]
         public int SituationId { get; set; }
+        [Required]
         [Column("situation")]
         [StringLength(20)]
         public string Situation1 { get; set; }

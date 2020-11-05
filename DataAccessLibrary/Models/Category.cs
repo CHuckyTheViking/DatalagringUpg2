@@ -15,6 +15,7 @@ namespace DataAccessLibrary.Models
         [Key]
         [Column("category_id")]
         public int CategoryId { get; set; }
+        [Required]
         [Column("category")]
         [StringLength(20)]
         public string Category1 { get; set; }
