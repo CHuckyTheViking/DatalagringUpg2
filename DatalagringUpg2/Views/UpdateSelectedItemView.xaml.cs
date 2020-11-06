@@ -117,13 +117,14 @@ namespace DatalagringUpg2.Views
 
             string response = await AddDataService.UpdateCustomerAsync(issueText, customerText, situationText, categoryText, detailId);
             btnUpdateContent(response);
-            
+ 
         }
 
         private async void btnAddComment_Click(object sender, RoutedEventArgs e)
         {
             string response = await AddDataService.AddCommentToIssueAsync(detailId, tbxAddComment.Text, DateTime.Now);
             btnCommentContent(response);
+            tbxAddComment.Text = "";
         }
 
         public async void btnCommentContent(string text)

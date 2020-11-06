@@ -7,6 +7,7 @@ namespace DataAccessLibrary.Models
 {
     public partial class Comment
     {
+
         [Key]
         [Column("comment_id")]
         public int CommentId { get; set; }

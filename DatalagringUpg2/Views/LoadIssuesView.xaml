@@ -4,27 +4,46 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:DatalagringUpg2.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:models="using:DataAccessLibrary.Models"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:models="using:DataAccessLibrary.Models"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.Resources>
-        <CollectionViewSource x:Name="CompletedCollection" Source="{x:Bind completedViewModel.completed}" />
-        <CollectionViewSource x:Name="StartedCollection" Source="{x:Bind startedViewModel.started}" />
-    </Page.Resources>
-
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
 
-        <ListView Grid.Column="0" Margin="5" x:Name="lvStartedIssue" DoubleTapped="lvStartedIssue_DoubleTapped" IsDoubleTapEnabled="True"  ItemsSource="{Binding Source={StaticResource StartedCollection}}" >
+        <controls:DataGrid x:Name="dataGridStarted" DoubleTapped="dataGridStarted_DoubleTapped" AutoGenerateColumns="false"  Grid.Column="0"  ItemsSource="{x:Bind startedIssues}">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Id" Binding="{Binding IssueId}"/>
+                <controls:DataGridTextColumn Header="Issue text" Binding="{Binding Issue1}" Width="220"/>
+                <controls:DataGridTextColumn Header="Situation" Binding="{Binding Situation.Situation1}"/>
+                <controls:DataGridTextColumn Header="Category" Binding="{Binding Category.Category1}"/>
+                <controls:DataGridTextColumn Header="Customer" Binding="{Binding Customer.CustomerName}"/>
+                <controls:DataGridTextColumn Header="Created" Binding="{Binding IssueTime}" Width="180"/>
+            </controls:DataGrid.Columns>
+
+        </controls:DataGrid>
+
+        <controls:DataGrid x:Name="dataGridCompleted" DoubleTapped="dataGridCompleted_DoubleTapped" AutoGenerateColumns="false" Grid.Column="1"  ItemsSource="{x:Bind completedIssues}">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Id" Binding="{Binding IssueId}"/>
+                <controls:DataGridTextColumn Header="Issue text" Binding="{Binding Issue1}" Width="220"/>
+                <controls:DataGridTextColumn Header="Situation" Binding="{Binding Situation.Situation1}"/>
+                <controls:DataGridTextColumn Header="Category" Binding="{Binding Category.Category1}"/>
+                <controls:DataGridTextColumn Header="Customer" Binding="{Binding Customer.CustomerName}"/>
+                <controls:DataGridTextColumn Header="Created" Binding="{Binding IssueTime}" Width="180"/>
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+
+
+        <!--<ListView Grid.Column="0" Margin="5" x:Name="lvStartedIssue" DoubleTapped="lvStartedIssue_DoubleTapped" IsDoubleTapEnabled="True"  ItemsSource="{Binding Source={StaticResource StartedCollection}}" >
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:Issue">
                     <TextBlock Text="{x:Bind LvDetails}" FontSize="18"/>
@@ -40,9 +59,9 @@
                     <TextBlock Text="{x:Bind LvDetails}" FontSize="18"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView>-->
 
-        <Frame x:Name="SelectedFrame" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <Frame x:Name="SelectedFrame" Grid.ColumnSpan="2"/>
 
 
 

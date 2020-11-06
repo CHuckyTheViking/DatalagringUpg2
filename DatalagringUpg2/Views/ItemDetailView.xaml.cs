@@ -28,6 +28,8 @@ namespace DatalagringUpg2.Views
     /// </summary>
     public sealed partial class ItemDetailView : Page
     {
+        List<Comment> comments = new List<Comment>();
+        private static string tbxIs { get; set; }
         private static int detailId { get; set; }
         public ItemDetailView()
         {
@@ -46,54 +48,44 @@ namespace DatalagringUpg2.Views
 
         private void GetIssue(int detailId)
         {
-
-            List<Issue> issue = GetDataService.GetIssueDetailsAsync(detailId).GetAwaiter().GetResult();
-
-            foreach (var i in issue)
+            try
             {
-                List<Picture> picture = new List<Picture>();
-                List<Comment> comments = new List<Comment>();
-                tbxIssue.Text = i.Issue1;
-                tbxIssueDate.Text = i.IssueTime.ToString();
-                tbxCustomer.Text = i.Customer.CustomerName;
+                List<Issue> issue = GetDataService.GetIssueDetailsAsync(detailId).GetAwaiter().GetResult();
 
-                tbxCategory.Text = i.Category.Category1;
-                tbxSituation.Text = i.Situation.Situation1;
-                picture = i.Picture.ToList();
-                if (picture != null)
+                foreach (var i in issue)
                 {
-                    foreach (var p in picture)
+                    List<Picture> picture = new List<Picture>();
+                    tbxIssue.Text = i.Issue1;
+                    tbxIssueDate.Text = i.IssueTime.ToString();
+                    tbxCustomer.Text = i.Customer.CustomerName;
+                    tbxId.Text = $"Issue id: {i.IssueId}"; ;
+                    tbxCategory.Text = i.Category.Category1;
+                    tbxSituation.Text = i.Situation.Situation1;
+
+                    picture = i.Picture.ToList();
+                    if (picture != null)
                     {
-                        imageDetail.Source = ByteArrayToImageAsync(p.Picture1).Result;
-                    }
-                }
-                
-                comments = i.Comment.ToList();
-                if (comments != null)
-                {
-                    foreach (var c in comments)
-                    {
-                        if (c.Comment1 != null)
+                        foreach (var p in picture)
                         {
-                            if (tbxcomment.Text == "")
-                            {
-                                tbxcomment.Text = c.Comment1;
-                                tbxComment1Date.Text = c.CommentTime.ToString();
-                            }
-                            else
-                            {
-                                tbxcomment2.Text = c.Comment1;
-                                tbxComment2Date.Text = c.CommentTime.ToString();
-                            }
-                            
+                            imageDetail.Source = ByteArrayToImageAsync(p.Picture1).Result;
                         }
-                      
                     }
-                }
-                
 
+                    var comms = i.Comment.ToList();
+                    if (comms != null)
+                    {
+                        foreach (var c in comms)
+                        {
+                            comments.Add(c);
+                        }
+                    }
+
+                }
             }
-            
+            catch 
+            {
+            }
+           
         }
 
         public async Task<BitmapImage> ByteArrayToImageAsync(byte[] pixeByte)

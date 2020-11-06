@@ -11,7 +11,9 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -46,7 +48,12 @@ namespace DatalagringUpg2.Views
                
                 switch (view.Tag.ToString())
                 {
-                    
+
+                    case "GoBack":
+                        Frame parentFrame = Window.Current.Content as Frame;
+                        parentFrame.Navigate(typeof(MainPage));
+                        
+                        break;
                     case "ItemDetailView":
                         ViewIssueFrame.Navigate(typeof(ItemDetailView), detailId);
                         break;
@@ -62,10 +69,6 @@ namespace DatalagringUpg2.Views
             }
         }
 
-        private void issueView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
-        {
-            
-
-        }
+       
     }
 }

@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace DatalagringUpg2
@@ -27,20 +28,22 @@ namespace DatalagringUpg2
         public MainPage()
         {
             this.InitializeComponent();
+            
         }
 
-       
 
-        private void navigationView_Loaded(object sender, RoutedEventArgs e)
+        private void navigationMenu_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewFrame.Navigate(typeof(StartingAppView));
+                  
+            MainFrame.Navigate(typeof(LoadIssuesView));
+            navigationMenu.IsPaneOpen = false;
         }
 
-        private void navigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        private void navigationMenu_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             if (args.IsSettingsSelected)
             {
-                ViewFrame.Navigate(typeof(SettingsView));
+                MainFrame.Navigate(typeof(SettingsView));
             }
             else
             {
@@ -49,13 +52,13 @@ namespace DatalagringUpg2
                 switch (view.Tag.ToString())
                 {
                     case "LoadIssuesView":
-                        ViewFrame.Navigate(typeof(LoadIssuesView));
-                        navigationView.IsPaneOpen = false;
+                        MainFrame.Navigate(typeof(LoadIssuesView));
+                        navigationMenu.IsPaneOpen = false;
                         break;
 
                     case "AddIssueView":
-                        ViewFrame.Navigate(typeof(AddIssueView));
-                        navigationView.IsPaneOpen = false;
+                        MainFrame.Navigate(typeof(AddIssueView));
+                        navigationMenu.IsPaneOpen = false;
                         break;
                 }
 
@@ -64,6 +67,8 @@ namespace DatalagringUpg2
 
 
         }
+
+        
 
         
      

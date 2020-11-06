@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:models="using:DataAccessLibrary.Models"
     xmlns:views="using:DatalagringUpg2.Views"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -15,13 +16,13 @@
 
     <Grid>
 
-        <NavigationView x:Name="navigationView" Loaded="navigationView_Loaded" SelectionChanged="navigationView_SelectionChanged">
+        <NavigationView x:Name="navigationMenu" Loaded="navigationMenu_Loaded" SelectionChanged="navigationMenu_SelectionChanged">
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="List" Content="Show Issues" FontSize="20" Tag="LoadIssuesView"/>
                 <NavigationViewItem Icon="Add" Content="Add an issue" FontSize="20" Tag="AddIssueView"/>
             </NavigationView.MenuItems>
             <ScrollViewer>
-                <Frame x:Name="ViewFrame" />
+                <Frame x:Name="MainFrame" />
             </ScrollViewer>
         </NavigationView>
 

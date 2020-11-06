@@ -5,13 +5,16 @@
     xmlns:local="using:DatalagringUpg2.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
     mc:Ignorable="d"
+    
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <NavigationView x:Name="issueView" Loaded="issueView_Loaded" SelectionChanged="issueView_SelectionChanged">
+    <Grid>                                                                                                                                                 
+        <NavigationView IsSettingsVisible="False" x:Name="issueView" IsBackButtonVisible="Collapsed" Loaded="issueView_Loaded" SelectionChanged="issueView_SelectionChanged" PaneDisplayMode="Top">
             <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Document" Content="Information about issue" FontSize="15" Tag="ItemDetailView2"/>
+                <NavigationViewItem Icon="Back" Content="Go Back" FontSize="15" Tag="GoBack"/>
+                <NavigationViewItem Icon="Document" Content="Information about issue" FontSize="15" Tag="ItemDetailView"/>
                 <NavigationViewItem Icon="Comment" Content="Update information" FontSize="15" Tag="UpdateSelectedItemView"/>
             </NavigationView.MenuItems>
             <ScrollViewer>

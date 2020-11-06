@@ -6,12 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="800">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="750">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="250"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="200"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="70"/>
@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <TextBlock Text="Update selected issue:" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>
+            <TextBlock Text="Update selected issue" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>
             <TextBlock x:Name="tbxId" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" />
         </StackPanel>
         

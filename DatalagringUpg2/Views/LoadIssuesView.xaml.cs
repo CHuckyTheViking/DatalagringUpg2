@@ -28,29 +28,30 @@ namespace DatalagringUpg2.Views
     {
         public static int id { get; set; }
 
-        public StartedViewModel startedViewModel { get; set; }
-        public CompletedViewModel completedViewModel { get; set; }
+        List<Issue> startedIssues = new List<Issue>();
+        List<Issue> completedIssues = new List<Issue>();
 
         public LoadIssuesView()
         {
             this.InitializeComponent();
-            startedViewModel = new StartedViewModel();
-            completedViewModel = new CompletedViewModel();
             LoadIssues().GetAwaiter();
         }
 
-        private async Task LoadIssues()
+        public async Task LoadIssues()
         {
+            
             var issues = await GetDataService.contextissues();
             foreach (var issue in issues)
             {
                 if (issue.SituationId == 4)
                 {
-                    completedViewModel.completed.Add(issue);
+                    completedIssues.Add(issue);
+                    //completedViewModel.completed.Add(issue);
                 }
                 else
                 {
-                    startedViewModel.started.Add(issue);
+                    startedIssues.Add(issue);
+                    //startedViewModel.started.Add(issue);
                 }
             }
         }
@@ -58,19 +59,21 @@ namespace DatalagringUpg2.Views
 
        
 
-        private void lvCompletedIssue_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+       
+
+        private void dataGridCompleted_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            dynamic Cissue = lvCompletedIssue.SelectedItem;
+            dynamic Cissue = dataGridCompleted.SelectedItem;
 
             id = Cissue.IssueId;
 
-
             SelectedFrame.Navigate(typeof(SelectedItemView), id);
+            id = -1;
         }
 
-        private void lvStartedIssue_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        private void dataGridStarted_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            dynamic Sissue = lvStartedIssue.SelectedItem;
+            dynamic Sissue = dataGridStarted.SelectedItem;
 
             id = Sissue.IssueId;
 
