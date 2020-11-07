@@ -141,8 +141,6 @@
     <Compile Include="Services\AddDataService.cs" />
     <Compile Include="Services\FilePicker.cs" />
     <Compile Include="Services\GetDataService.cs" />
-    <Compile Include="ViewModels\CompletedViewModel.cs" />
-    <Compile Include="ViewModels\StartedViewModel.cs" />
     <EmbeddedResource Include="Properties\DataAccessLibrary.rd.xml" />
   </ItemGroup>
   <ItemGroup>

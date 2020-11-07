@@ -10,10 +10,12 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -41,25 +43,34 @@ namespace DatalagringUpg2.Views
 
         private void btnAddIssue_Click(object sender, RoutedEventArgs e)
         {
-            
-            string issue = tbxissue.Text;
-            DateTime datetime = DateTime.Now;
-            string comment = tbxcomment.Text;
-            byte[] picture = image;
 
-            string cstmer = cmbCustomers.SelectedValue.ToString();
+            try
+            {
+                string cstmer = null;
+                string issue = tbxissue.Text;
+                DateTime datetime = DateTime.Now;
+                string comment = tbxcomment.Text;
+                byte[] picture = image;
 
-            string category = cmbCategory.SelectedValue.ToString();          
-            string situation = cmbSituation.SelectedValue.ToString();
-        
-            AddDataService.AddIssueToDBAsync(issue,datetime,comment,picture,cstmer,category,situation).GetAwaiter();
-            ClearFields();
+                if (cmbCustomers.SelectedItem == null)
+                {
+                    cstmer = tbxcustomer.Text;
+                }
+               
+                string category = cmbCategory.SelectedValue.ToString();
+                string situation = cmbSituation.SelectedValue.ToString();
+
+                AddDataService.AddIssueToDBAsync(issue, datetime, comment, picture, cstmer, category, situation).GetAwaiter();
+                ClearFields();
+            }
+            catch { }
+
         }
         private void ClearFields()
         {
             tbxissue.Text = "";
             tbxcomment.Text = "";
-            //imageAdd.ClearValue();
+            tbxcustomer.Text = "";
             cmbCustomers.SelectedItem = null;
             cmbCategory.SelectedItem = null;
             cmbSituation.SelectedItem = null;
@@ -69,43 +80,75 @@ namespace DatalagringUpg2.Views
 
         private async Task cmbLoaderAsync()
         {
-            await cmbCustomersAddAsync();
-            await cmbCategorysAddAsync();
-            await cmbSituationsAddAsync();
+            try
+            {
+                await cmbCustomersAddAsync();
+                await cmbCategorysAddAsync();
+                await cmbSituationsAddAsync();
+            }
+            catch { }
+
         }
 
         private async Task cmbCustomersAddAsync()
         {
-            cmbCustomers.ItemsSource = await GetDataService.GetCustomersAsync();
+            try
+            {
+                cmbCustomers.ItemsSource = await GetDataService.GetCustomersAsync();
+            }
+            catch { }
         }
         private async Task cmbCategorysAddAsync()
         {
-            cmbCategory.ItemsSource = await GetDataService.GetCategorysAsync();
+            try
+            {
+                cmbCategory.ItemsSource = await GetDataService.GetCategorysAsync();
+            }
+            catch { }
         }
         private async Task cmbSituationsAddAsync()
         {
-            cmbSituation.ItemsSource = await GetDataService.GetSituationsAsync();
+            try
+            {
+                cmbSituation.ItemsSource = await GetDataService.GetSituationsAsync();
+            }
+            catch { }
         }
 
         private async void btnAddPicture_Click(object sender, RoutedEventArgs e)
         {
-            image = await FilePicker.FilePickerAsync();
-            //path = await FilePicker.GetPictureUri();
-            //LoadPicture(path);
-            
-            
+            try
+            {
+                image = await FilePicker.FilePickerAsync();
+                if (image != null)
+                {
+                    imageAdd.Source = ByteArrayToImageAsync(image).Result;
+                }
+            }
+            catch { }
         }
-        private async void LoadPicture(string path)
+
+        public async Task<BitmapImage> ByteArrayToImageAsync(byte[] pixeByte)
         {
-           
+            BitmapImage image = new BitmapImage();
+            try
+            {
+                using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+                {
+                    
+                    await stream.WriteAsync(pixeByte.AsBuffer());
+                    stream.Seek(0);
+                    image.SetSource(stream);
+                    
+                }
+            }
+            catch { }
+            return image;
+        }
 
-
-            //var uri = new Uri(path);
-            //var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
-            //Image img = new Image();
-            //img.Source = file.;
-            //imageAdd.u;
-            //imageAdd.Source = new BitmapImage(new Uri(path));
+        private void btnClearCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            cmbCustomers.SelectedItem = null;
         }
     }
 }

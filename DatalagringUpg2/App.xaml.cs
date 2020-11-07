@@ -1,12 +1,15 @@
-﻿using System;
+﻿using DatalagringUpg2.appsettings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -23,6 +26,7 @@ namespace DatalagringUpg2
     /// </summary>
     sealed partial class App : Application
     {
+        public static int maxRows { get; set; }
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -31,6 +35,9 @@ namespace DatalagringUpg2
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            var config = new AppConfig();
+            maxRows = config.appSettings.MaxRows;
         }
 
         /// <summary>

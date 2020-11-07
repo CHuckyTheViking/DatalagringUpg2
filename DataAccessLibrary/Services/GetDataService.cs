@@ -14,7 +14,7 @@ namespace DataAccessLibrary.Services
 {
     public class GetDataService
     {
-        public static async Task <List<Issue>> contextissues()
+        public static async Task <List<Issue>> LoadAllIssuesAsync()
         {
             
             await using (var db = new Context())

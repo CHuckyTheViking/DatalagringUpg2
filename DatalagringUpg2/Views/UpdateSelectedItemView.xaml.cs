@@ -39,7 +39,6 @@ namespace DatalagringUpg2.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-
             detailId = (int)e.Parameter;
             GetIssue(detailId);
         }

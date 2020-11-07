@@ -29,20 +29,18 @@ namespace DatalagringUpg2.Views
     public sealed partial class ItemDetailView : Page
     {
         List<Comment> comments = new List<Comment>();
-        private static string tbxIs { get; set; }
         private static int detailId { get; set; }
+
         public ItemDetailView()
         {
-            
             this.InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {            
-
             detailId = (int)e.Parameter;
             GetIssue(detailId);
-            Frame.Visibility = Visibility.Visible;
+            
         }
 
 
@@ -82,39 +80,26 @@ namespace DatalagringUpg2.Views
 
                 }
             }
-            catch 
-            {
-            }
+            catch { }
            
         }
 
         public async Task<BitmapImage> ByteArrayToImageAsync(byte[] pixeByte)
         {
-            using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+            BitmapImage image = new BitmapImage();
+            try
             {
-                BitmapImage image = new BitmapImage();
-                await stream.WriteAsync(pixeByte.AsBuffer());
-                stream.Seek(0);
-                image.SetSource(stream);
-                return image;
+                using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+                {
+
+                    await stream.WriteAsync(pixeByte.AsBuffer());
+                    stream.Seek(0);
+                    image.SetSource(stream);
+
+                }
             }
-        }
-
-        private void btnCloseIssue_Click(object sender, RoutedEventArgs e)
-        {
-
-            
-
-        }
-
-        private void btnUpdateIssue_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void issueView_Loaded(object sender, RoutedEventArgs e)
-        {
-
+            catch { }
+            return image;
         }
 
 

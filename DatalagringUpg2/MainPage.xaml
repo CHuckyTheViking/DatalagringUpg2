@@ -11,41 +11,17 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    
-
-
     <Grid>
 
         <NavigationView x:Name="navigationMenu" Loaded="navigationMenu_Loaded" SelectionChanged="navigationMenu_SelectionChanged">
             <NavigationView.MenuItems>
-                <NavigationViewItem Icon="List" Content="Show Issues" FontSize="20" Tag="LoadIssuesView"/>
+                <NavigationViewItem Icon="Library" Content="Show Issues" FontSize="20" Tag="LoadIssuesView"/>
                 <NavigationViewItem Icon="Add" Content="Add an issue" FontSize="20" Tag="AddIssueView"/>
             </NavigationView.MenuItems>
-            <ScrollViewer>
-                <Frame x:Name="MainFrame" />
-            </ScrollViewer>
-        </NavigationView>
-
-
-
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="*"/>
             
-        </Grid.ColumnDefinitions>
-
-
-        <StackPanel Grid.Column="0">
-            <Button x:Name="btnAddIssue" Content="Add issue" FontSize="30" HorizontalAlignment="Stretch" Height="100" Margin="5,15" Click="btnAddIssue_Click"/>
-            <Button x:Name="btnShowIssues" Content="Show issues" FontSize="30" HorizontalAlignment="Stretch" Height="100" Margin="5,15" Click="btnShowIssues_Click"/>
-        </StackPanel>
-
-        <Frame Grid.Column="1" x:Name="frame"/>-->
-
-
-
-
-
+            <Frame x:Name="MainFrame" />
+            
+        </NavigationView>
 
 
     </Grid>

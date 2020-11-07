@@ -33,6 +33,7 @@ namespace DatalagringUpg2.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             detailId = (int)e.Parameter;
+            Frame.Visibility = Visibility.Visible;
         }
         private void issueView_Loaded(object sender, RoutedEventArgs e)
         {
@@ -63,12 +64,9 @@ namespace DatalagringUpg2.Views
                         break;
                 }
             }
-            catch
-            {
+            catch { }
 
-            }
         }
-
        
     }
 }

@@ -29,23 +29,17 @@
         <TextBox  x:Name="tbxIssue" Grid.Row="1" Margin="20,50" HorizontalAlignment="Center" FontSize="15" Background="Gray" Width="700"/>
         <ComboBox x:Name="cmbCustomer" Grid.Row="4" PlaceholderText="Select a customer" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15"  Width="400" Margin="250,0"/>
         <ComboBox x:Name="cmbCategory" Grid.Row="5" PlaceholderText="Select a category" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Width="400" Margin="250,0"/>
-        <StackPanel Grid.Row="3">
-            <ComboBox  x:Name="cmbSituation" PlaceholderText="Select a situation" HorizontalAlignment="Left" FontSize="15" Width="400" Margin="250,20,0,0"/>
-            <!--<TextBlock HorizontalAlignment="Right" Width="100" Height="30" FontSize="20" Text="asdasdsad" Margin="0,0,260,0" />-->
-        </StackPanel>
 
+        <ComboBox Grid.Row="3" x:Name="cmbSituation" PlaceholderText="Select a situation" HorizontalAlignment="Left" FontSize="15" Width="400" Margin="250,20,0,0"/>
+           
+       
         <StackPanel Grid.Row="2">
             <TextBox x:Name="tbxAddComment" Width="650" Margin="0,80,0,0" PlaceholderText="Add Comment..."/>
             
             <Button x:Name="btnAddComment" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Add comment" FontSize="18" Margin="0,0,80,0" Click="btnAddComment_Click" />
         </StackPanel>
-      
-        
+             
         <Button x:Name="btnUpdate" Grid.Row="4" Grid.RowSpan="2" Content="Update issue" FontSize="25" Height="80" Width="180" HorizontalAlignment="Right" Margin="0,0,200,50" Click="btnUpdate_Click"/>
-        
-        
-
-
 
     </Grid>
 </Page>

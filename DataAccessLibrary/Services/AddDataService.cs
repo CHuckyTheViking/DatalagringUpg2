@@ -22,17 +22,21 @@ namespace DataAccessLibrary.Services
                 {
                     try
                     {
-                        Customer customer = db.Customer.FirstOrDefault(cus => cus.CustomerName == cstmer);
+                        Customer customer = db.Customer.FirstOrDefault(c => c.CustomerName == cstmer);
                         if (customer != null)
                         {
                             cstmerid = customer.CustomerId;
                         }
+                        else
+                        {
+                            db.Customer.Add(new Customer { CustomerName = cstmer });
+                            db.SaveChanges();
+                            Customer customeradd = db.Customer.FirstOrDefault(c => c.CustomerName == cstmer);
+                            cstmerid = customeradd.CustomerId;
 
+                        }
                     }
-                    catch
-                    {
-                        //STUFF TO ADD A NEW CUSTOMER IF NOT FOUND
-                    }
+                    catch { }
                 }
 
                 if (category != null)

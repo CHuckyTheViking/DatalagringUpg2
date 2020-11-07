@@ -13,14 +13,6 @@ namespace DataAccessLibrary.Models
             Picture = new HashSet<Picture>();
         }
 
-        //public string LvDetails => $"{IssueId} | {IssueTime} | {Customer.CustomerName} | {Category.Category1} | {Situation.Situation1}";
-        //public int dataGridIssueId => IssueId;
-        //public string dataGridIssueText => Issue1;
-        //public string dataGridSituation => Situation.Situation1;
-        //public string dataGridCategory => Category.Category1;
-        //public string dataGridCustomer => Customer.CustomerName;       
-        //public DateTime dataGridIssueTime => IssueTime;
-
         [Key]
         [Column("issue_id")]
         public int IssueId { get; set; }

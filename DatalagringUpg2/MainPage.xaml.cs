@@ -1,5 +1,4 @@
 ﻿using DataAccessLibrary.Services;
-using DataAccessLibrary.ViewModels;
 using DatalagringUpg2.Views;
 using System;
 using System.Collections.Generic;
@@ -41,36 +40,35 @@ namespace DatalagringUpg2
 
         private void navigationMenu_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            if (args.IsSettingsSelected)
+            try
             {
-                MainFrame.Navigate(typeof(SettingsView));
-            }
-            else
-            {
-                NavigationViewItem view = args.SelectedItem as NavigationViewItem;
-
-                switch (view.Tag.ToString())
+                if (args.IsSettingsSelected)
                 {
-                    case "LoadIssuesView":
-                        MainFrame.Navigate(typeof(LoadIssuesView));
-                        navigationMenu.IsPaneOpen = false;
-                        break;
-
-                    case "AddIssueView":
-                        MainFrame.Navigate(typeof(AddIssueView));
-                        navigationMenu.IsPaneOpen = false;
-                        break;
+                    MainFrame.Navigate(typeof(SettingsView));
                 }
+                else
+                {
+                    NavigationViewItem view = args.SelectedItem as NavigationViewItem;
 
+                    switch (view.Tag.ToString())
+                    {
+                        case "LoadIssuesView":
+                            MainFrame.Navigate(typeof(LoadIssuesView));
+                            navigationMenu.IsPaneOpen = false;
+                            break;
 
+                        case "AddIssueView":
+                            MainFrame.Navigate(typeof(AddIssueView));
+                            navigationMenu.IsPaneOpen = false;
+                            break;
+                    }
+
+                }
             }
-
+            catch { }
+       
 
         }
-
-        
-
-        
      
     }
 }

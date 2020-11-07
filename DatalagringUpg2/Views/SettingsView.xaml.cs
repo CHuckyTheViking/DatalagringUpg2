@@ -1,10 +1,14 @@
-﻿using System;
+﻿using DatalagringUpg2.appsettings;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Data.Json;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +29,17 @@ namespace DatalagringUpg2.Views
         public SettingsView()
         {
             this.InitializeComponent();
+        }
+
+        private void btnUpdateAppSettings_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int Nr = Convert.ToInt32(cmbShowNrIssues.SelectionBoxItem.ToString());
+                App.maxRows = Nr;
+
+            }
+            catch { }
         }
     }
 }

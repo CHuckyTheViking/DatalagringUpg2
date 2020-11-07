@@ -12,14 +12,19 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Ongoing issues" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="Completed issues" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <controls:DataGrid x:Name="dataGridStarted" DoubleTapped="dataGridStarted_DoubleTapped" AutoGenerateColumns="false"  Grid.Column="0"  ItemsSource="{x:Bind startedIssues}">
+        <controls:DataGrid x:Name="dataGridStarted" ToolTipService.ToolTip="Double click to show more information" DoubleTapped="dataGridStarted_DoubleTapped" GridLinesVisibility="Horizontal" BorderThickness="1" BorderBrush="Gray" AutoGenerateColumns="false"  Grid.Column="0" Grid.Row="1" ItemsSource="{x:Bind startedIssues}">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn Header="Id" Binding="{Binding IssueId}"/>
                 <controls:DataGridTextColumn Header="Issue text" Binding="{Binding Issue1}" Width="220"/>
@@ -31,7 +36,7 @@
 
         </controls:DataGrid>
 
-        <controls:DataGrid x:Name="dataGridCompleted" DoubleTapped="dataGridCompleted_DoubleTapped" AutoGenerateColumns="false" Grid.Column="1"  ItemsSource="{x:Bind completedIssues}">
+        <controls:DataGrid x:Name="dataGridCompleted" ToolTipService.ToolTip="Double click to show more information" DoubleTapped="dataGridCompleted_DoubleTapped" GridLinesVisibility="Horizontal" BorderThickness="1" BorderBrush="Gray" AutoGenerateColumns="false" Grid.Column="1" Grid.Row="1" ItemsSource="{x:Bind completedIssues}">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn Header="Id" Binding="{Binding IssueId}"/>
                 <controls:DataGridTextColumn Header="Issue text" Binding="{Binding Issue1}" Width="220"/>
@@ -41,29 +46,10 @@
                 <controls:DataGridTextColumn Header="Created" Binding="{Binding IssueTime}" Width="180"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
-
-
-        <!--<ListView Grid.Column="0" Margin="5" x:Name="lvStartedIssue" DoubleTapped="lvStartedIssue_DoubleTapped" IsDoubleTapEnabled="True"  ItemsSource="{Binding Source={StaticResource StartedCollection}}" >
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:Issue">
-                    <TextBlock Text="{x:Bind LvDetails}" FontSize="18"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
         
-
+        <Frame x:Name="SelectedFrame" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
         
-        <ListView Grid.Column="1" Margin="5" x:Name="lvCompletedIssue" DoubleTapped="lvCompletedIssue_DoubleTapped" IsDoubleTapEnabled="True"  ItemsSource="{Binding Source={StaticResource CompletedCollection}}" >
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:Issue">
-                    <TextBlock Text="{x:Bind LvDetails}" FontSize="18"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
-
-        <Frame x:Name="SelectedFrame" Grid.ColumnSpan="2"/>
-
-
-
+        
+        
     </Grid>
 </Page>

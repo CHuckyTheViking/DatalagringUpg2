@@ -1,6 +1,5 @@
 ﻿using DataAccessLibrary.Models;
 using DataAccessLibrary.Services;
-using DataAccessLibrary.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,42 +30,42 @@ namespace DatalagringUpg2.Views
         List<Issue> startedIssues = new List<Issue>();
         List<Issue> completedIssues = new List<Issue>();
 
+        List<Issue> _startedIssues = new List<Issue>();
+        List<Issue> _completedIssues = new List<Issue>();
+
         public LoadIssuesView()
         {
             this.InitializeComponent();
             LoadIssues().GetAwaiter();
+            
         }
 
         public async Task LoadIssues()
         {
             
-            var issues = await GetDataService.contextissues();
+            var issues = await GetDataService.LoadAllIssuesAsync();
             foreach (var issue in issues)
             {
                 if (issue.SituationId == 4)
                 {
-                    completedIssues.Add(issue);
-                    //completedViewModel.completed.Add(issue);
+                    _completedIssues.Add(issue);
                 }
                 else
                 {
-                    startedIssues.Add(issue);
-                    //startedViewModel.started.Add(issue);
+                    _startedIssues.Add(issue);
                 }
             }
+
+            completedIssues = _completedIssues.Take(App.maxRows).ToList();
+            startedIssues = _startedIssues.Take(App.maxRows).ToList();
         }
-
-
-       
-
-       
 
         private void dataGridCompleted_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             dynamic Cissue = dataGridCompleted.SelectedItem;
 
             id = Cissue.IssueId;
-
+            
             SelectedFrame.Navigate(typeof(SelectedItemView), id);
             id = -1;
         }
@@ -76,7 +75,7 @@ namespace DatalagringUpg2.Views
             dynamic Sissue = dataGridStarted.SelectedItem;
 
             id = Sissue.IssueId;
-
+            
             SelectedFrame.Navigate(typeof(SelectedItemView), id);
             id = -1;
         }

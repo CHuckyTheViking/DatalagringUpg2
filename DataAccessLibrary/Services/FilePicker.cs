@@ -12,38 +12,33 @@ namespace DataAccessLibrary.Services
     public class FilePicker
     {
         public static StorageFile file;
-        public static async Task <byte[]> FilePickerAsync()
-        {
-            var picker = new Windows.Storage.Pickers.FileOpenPicker();
-            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
-            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
-            picker.FileTypeFilter.Add(".jpg");
-            picker.FileTypeFilter.Add(".png");
-
-
-            file = await picker.PickSingleFileAsync();
-
-            var buffer = await FileIO.ReadBufferAsync(file);
-            using (MemoryStream mstream = new MemoryStream())
-            {
-                await buffer.AsStream().CopyToAsync(mstream);
-                byte[] bytes = mstream.ToArray();
-                return bytes;
-            }           
-
-        }
-
-        public static async Task <string> GetPictureUri()
+        public static byte[] bytes { get; set; }
+        public static async Task<byte[]> FilePickerAsync()
         {
             
-            string path =  file.Path;
-            return path;
+            try
+            {
+                var picker = new Windows.Storage.Pickers.FileOpenPicker();
+                picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+                picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+                picker.FileTypeFilter.Add(".jpg");
+                picker.FileTypeFilter.Add(".png");
+
+
+                file = await picker.PickSingleFileAsync();
+
+                var buffer = await FileIO.ReadBufferAsync(file);
+                using (MemoryStream mstream = new MemoryStream())
+                {
+                    await buffer.AsStream().CopyToAsync(mstream);
+                    bytes = mstream.ToArray();
+
+                }
+
+            }
+            catch {  }
+            return bytes;
         }
-
-     
-
-
-
 
     }
 }

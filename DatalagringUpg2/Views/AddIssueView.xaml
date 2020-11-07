@@ -34,8 +34,10 @@
             <TextBox  x:Name="tbxissue" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Background="Gray" Width="800"/>
             <TextBox  x:Name="tbxcomment" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Background="Gray" Width="800"/>
 
-            <TextBox  x:Name="tbxcustomer" Grid.Row="4" VerticalAlignment="Center" FontSize="20" Background="Gray" Margin="190,0,0,0" Width="600" PlaceholderText="Add new customer if needed"/>
-            <ComboBox x:Name="cmbCustomers" Grid.Row="4" PlaceholderText="Select a customer" VerticalAlignment="Center" FontSize="20" Margin="30"/>
+            <TextBox  x:Name="tbxcustomer" Grid.Row="4" VerticalAlignment="Center" FontSize="20" Background="Gray" Margin="190,0,0,0" Width="600" PlaceholderText="Add new customer if needed... Please clear value to the left first"/>
+            <ComboBox x:Name="cmbCustomers" Grid.Row="4" PlaceholderText="Select a customer" VerticalAlignment="Center" FontSize="19" Margin="50,0,0,45"/>
+            <Button x:Name="btnClearCustomer" Grid.Row="4" Content="Clear value" Click="btnClearCustomer_Click" VerticalAlignment="Top" Margin="100,53,0,0" FontSize="12"/>
+
             <ComboBox x:Name="cmbCategory" Grid.Row="5" PlaceholderText="Select a category" VerticalAlignment="Center" FontSize="20" Width="500" Margin="30,0"/>
             <ComboBox x:Name="cmbSituation" Grid.Row="6" PlaceholderText="Select a situation" VerticalAlignment="Center" FontSize="20" Width="500" Margin="30,0"/>
             <Button x:Name="btnAddIssue" Click="btnAddIssue_Click" Grid.Row="7" FontSize="30" Content="Add issue" HorizontalAlignment="Center" Width="300" VerticalAlignment="Center" />
@@ -63,14 +65,6 @@
             <TextBlock Grid.Row="6" Text="Situation:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
         </Grid>
-
-
-
-
-
-
-
-
 
     </Grid>
 </Page>

@@ -48,10 +48,12 @@
 					<uap:SupportedFileTypes>
 						<uap:FileType>.jpg</uap:FileType>
 						<uap:FileType>.png</uap:FileType>
+						<uap:FileType>.json</uap:FileType>
 					</uap:SupportedFileTypes>
 				</uap:FileTypeAssociation>
 			</uap:Extension>
 		</Extensions>
+		
 		
 		
     </Application>
