@@ -1,0 +1,58 @@
+CREATE TABLE Comment(
+	comment_id INT IDENTITY(1,1) PRIMARY KEY,
+	comment NVARCHAR(255) not null,
+	comment_time DATETIME not null
+);
+
+GO
+
+CREATE TABLE Picture(
+	picture_id INT IDENTITY(1,1) PRIMARY KEY,
+	picture VARBINARY(max) not null
+);
+
+GO
+
+CREATE TABLE Situation(
+	situation_id INT IDENTITY(1,1) PRIMARY KEY,
+	situation NVARCHAR(20) not null
+);
+
+GO
+
+CREATE TABLE Category(
+	category_id INT IDENTITY(1,1) PRIMARY KEY,
+	category NVARCHAR(20) not null
+);
+
+GO
+
+CREATE TABLE Customer(
+	customer_id INT IDENTITY(1,1) PRIMARY KEY,
+	customer_name NVARCHAR(50) not null
+);
+
+GO
+
+CREATE TABLE Issue(
+	issue_id INT IDENTITY(1,1) PRIMARY KEY,
+	issue NVARCHAR(255) not null,
+	issue_time DATETIME not null,
+	customer_id INT not null,
+	category_id INT not null,
+	situation_id INT not null,
+	FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
+	FOREIGN KEY (category_id) REFERENCES Category(category_id),
+	FOREIGN KEY (situation_id) REFERENCES Situation(situation_id),
+);
+
+GO
+
+ALTER TABLE Comment
+ADD issue_id INT not null FOREIGN KEY (issue_id) REFERENCES Issue(issue_id)
+
+GO
+
+ALTER TABLE Picture
+ADD issue_id INT not null FOREIGN KEY (issue_id) REFERENCES Issue(issue_id)
+

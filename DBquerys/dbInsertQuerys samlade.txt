@@ -1,0 +1,27 @@
+INSERT INTO Category
+	(category)
+VALUES
+('Network'),
+('Error'),
+('Invoice'),
+('Broken')
+
+GO
+
+INSERT INTO Customer
+	(customer_name)
+VALUES
+	('Mcdonalds'),
+	('Coop'),
+	('Ica')
+
+GO
+
+INSERT INTO Situation
+	(situation)
+VALUES
+	('Not started'),
+	('Started'),
+	('Pending'),
+	('Completed')
+
