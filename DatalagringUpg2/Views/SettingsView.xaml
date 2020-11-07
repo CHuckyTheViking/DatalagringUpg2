@@ -11,7 +11,7 @@
     <Grid>
 
         
-        <TextBlock Text="SETTINGS" FontSize="50" Foreground="Purple" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <TextBlock Text="SETTINGS" FontSize="50" Foreground="CornflowerBlue" FontWeight="SemiBold" Margin="0,50" VerticalAlignment="Top" HorizontalAlignment="Center"/>
         <TextBlock Text="Select maximun number of issues to show" VerticalAlignment="Center" Margin="80,0" FontSize="25"/>
         <Button x:Name="btnUpdateAppSettings" Click="btnUpdateAppSettings_Click" Content="Save changes" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="250" Height="100" FontSize="30" Margin="300,200"/>
         <ComboBox x:Name="cmbShowNrIssues" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25">

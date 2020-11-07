@@ -131,15 +131,16 @@ namespace DatalagringUpg2.Views
         {
             try
             {
-                if (tbxAddComment.Text == null)
+                if (tbxAddComment.Text == "")
+                {
+                    tbxAddCommentText();
+                }
+                else
                 {
                     string response = await AddDataService.AddCommentToIssueAsync(detailId, tbxAddComment.Text, DateTime.Now);
                     btnCommentContent(response);
                     tbxAddComment.Text = "";
-                }
-                else
-                {
-                    tbxAddCommentText();
+                    
                 }
                 
             }
@@ -149,7 +150,7 @@ namespace DatalagringUpg2.Views
         public async void tbxAddCommentText()
         {
             tbxAddComment.Text = "Please write something before clicking the button...";
-            await Task.Delay(3000);
+            await Task.Delay(2000);
             tbxAddComment.Text = "";
         }
 

@@ -16,33 +16,40 @@ namespace DataAccessLibrary.Services
     {
         public static async Task <List<Issue>> LoadAllIssuesAsync()
         {
-            
-            await using (var db = new Context())
+            List<Issue> issues = new List<Issue>();
+            try
             {
+                await using (var db = new Context())
+                {
 
-                var issues = db.Issue.Include(a => a.Customer).Include(b => b.Category).Include(c => c.Situation)
-                    .Include(d => d.Picture).Include(e => e.Comment).ToList();
+                    issues = db.Issue.Include(a => a.Customer).Include(b => b.Category).Include(c => c.Situation)
+                        .Include(d => d.Picture).Include(e => e.Comment).ToList();
+
                     
-                return issues;
+                }
             }
-          
+            catch { }
+            return issues;
         }
 
         public static async Task <List<string>> GetCustomersAsync()
         {
             var customernames = new List<string>();
 
-            await using (var db = new Context())
+            try
             {
-                var customer = db.Customer.ToList();
-                foreach (var c in customer)
+                await using (var db = new Context())
                 {
-                    customernames.Add(c.CustomerName);
+                    var customer = db.Customer.ToList();
+                    foreach (var c in customer)
+                    {
+                        customernames.Add(c.CustomerName);
+                    }
                 }
-
-                return customernames;
+               
             }
-
+            catch { }
+            return customernames;
         }
         public static async Task <List<string>> GetCategorysAsync()
         {
@@ -64,29 +71,38 @@ namespace DataAccessLibrary.Services
         {
             var situations = new List<string>();
 
-            await using (var db = new Context())
+            try
             {
-                var situation = db.Situation.ToList();
-                foreach (var s in situation)
+                await using (var db = new Context())
                 {
-                    situations.Add(s.Situation1);
+                    var situation = db.Situation.ToList();
+                    foreach (var s in situation)
+                    {
+                        situations.Add(s.Situation1);
+                    }
                 }
-
-                return situations;
             }
-           
+            catch { }
+            return situations;
         }
 
         public static async Task <List<Issue>> GetIssueDetailsAsync(int id)
         {
-            await using (var db = new Context())
+            List<Issue> issue = new List<Issue>();
+
+            try
             {
+                await using (var db = new Context())
+                {
 
-                var issue = db.Issue.Where(i => i.IssueId == id).Include(a => a.Customer).Include(b => b.Category).Include(c => c.Situation)
-                    .Include(d => d.Picture).Include(e => e.Comment).ToList();
-                return issue;
+                    issue = db.Issue.Where(i => i.IssueId == id).Include(a => a.Customer).Include(b => b.Category).Include(c => c.Situation)
+                        .Include(d => d.Picture).Include(e => e.Comment).ToList();
+                    
 
+                }
             }
+            catch { }
+            return issue;
         }
 
     }

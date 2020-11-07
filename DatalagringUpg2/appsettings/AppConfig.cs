@@ -18,7 +18,7 @@ namespace DatalagringUpg2.appsettings
 
         public AppConfig()
         {
-            var builder = new ConfigurationBuilder()  //Package.Current.InstalledLocation.Path
+            var builder = new ConfigurationBuilder()
                 .SetBasePath(Package.Current.InstalledLocation.Path)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
