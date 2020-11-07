@@ -56,6 +56,10 @@ namespace DatalagringUpg2.Views
                 {
                     cstmer = tbxcustomer.Text;
                 }
+                else
+                {
+                    cstmer = cmbCustomers.SelectedValue.ToString();
+                }
                
                 string category = cmbCategory.SelectedValue.ToString();
                 string situation = cmbSituation.SelectedValue.ToString();
@@ -74,6 +78,7 @@ namespace DatalagringUpg2.Views
             cmbCustomers.SelectedItem = null;
             cmbCategory.SelectedItem = null;
             cmbSituation.SelectedItem = null;
+            imageAdd.Source = null;
         }
 
 

@@ -12,81 +12,85 @@ namespace DataAccessLibrary.Services
     {
         public static async Task AddIssueToDBAsync(string issue, DateTime datetime, string comment, byte[] picture, string cstmer, string category, string situation)
         {
-            
-            int cstmerid = 0;
-            int categoryid = 0;
-            int situationid = 0;
-            await using (var db = new Context())
+
+            try
             {
-                if (cstmer != null)
+                int cstmerid = 0;
+                int categoryid = 0;
+                int situationid = 0;
+                await using (var db = new Context())
                 {
-                    try
+                    if (cstmer != null)
                     {
-                        Customer customer = db.Customer.FirstOrDefault(c => c.CustomerName == cstmer);
-                        if (customer != null)
+                        try
                         {
-                            cstmerid = customer.CustomerId;
-                        }
-                        else
-                        {
-                            db.Customer.Add(new Customer { CustomerName = cstmer });
-                            db.SaveChanges();
-                            Customer customeradd = db.Customer.FirstOrDefault(c => c.CustomerName == cstmer);
-                            cstmerid = customeradd.CustomerId;
+                            Customer customer = db.Customer.FirstOrDefault(c => c.CustomerName == cstmer);
+                            if (customer != null)
+                            {
+                                cstmerid = customer.CustomerId;
+                            }
+                            else
+                            {
+                                db.Customer.Add(new Customer { CustomerName = cstmer });
+                                db.SaveChanges();
+                                Customer customeradd = db.Customer.FirstOrDefault(c => c.CustomerName == cstmer);
+                                cstmerid = customeradd.CustomerId;
 
+                            }
                         }
+                        catch { }
                     }
-                    catch { }
-                }
 
-                if (category != null)
-                {
-                    try
+                    if (category != null)
                     {
-
-                        var categoryset = db.Category.FirstOrDefault(cat => cat.Category1 == category);
-                        if (categoryset != null)
+                        try
                         {
-                            categoryid = categoryset.CategoryId;
+
+                            var categoryset = db.Category.FirstOrDefault(cat => cat.Category1 == category);
+                            if (categoryset != null)
+                            {
+                                categoryid = categoryset.CategoryId;
+                            }
+
                         }
-
+                        catch { }
                     }
-                    catch  {}
-                }
 
-                if (situation != null)
-                {
-                    try
+                    if (situation != null)
                     {
-                        var situationset = db.Situation.FirstOrDefault(sit => sit.Situation1 == situation);
-                        if (situationset != null)
+                        try
                         {
-                            situationid = situationset.SituationId;
+                            var situationset = db.Situation.FirstOrDefault(sit => sit.Situation1 == situation);
+                            if (situationset != null)
+                            {
+                                situationid = situationset.SituationId;
+                            }
                         }
+                        catch { }
                     }
-                    catch { }
+
+                    Issue newIssue = new Issue();
+
+                    newIssue.Issue1 = issue;
+                    newIssue.IssueTime = datetime;
+                    newIssue.CustomerId = cstmerid;
+                    newIssue.CategoryId = categoryid;
+                    newIssue.SituationId = situationid;
+                    if (comment != null)
+                    {
+                        newIssue.Comment.Add(new Comment { Comment1 = comment, CommentTime = datetime });
+                    }
+                    if (picture != null)
+                    {
+                        newIssue.Picture.Add(new Picture { Picture1 = picture });
+                    }
+
+                    db.Issue.Add(newIssue);
+                    await db.SaveChangesAsync();
+
                 }
-
-                Issue newIssue = new Issue();
-
-                newIssue.Issue1 = issue;
-                newIssue.IssueTime = datetime;
-                newIssue.CustomerId = cstmerid;
-                newIssue.CategoryId = categoryid;
-                newIssue.SituationId = situationid;
-                if (comment != null)
-                {
-                    newIssue.Comment.Add(new Comment { Comment1 = comment, CommentTime = datetime });
-                }
-                if (picture != null)
-                {
-                    newIssue.Picture.Add(new Picture { Picture1 = picture });
-                }
-
-                db.Issue.Add(newIssue);
-                await db.SaveChangesAsync();
-
             }
+            catch { }
         }
 
         

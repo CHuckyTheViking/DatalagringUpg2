@@ -57,7 +57,7 @@
 
             <TextBox  x:Name="tbxIssue" Grid.Row="1" Margin="20" HorizontalAlignment="Center" FontSize="15" Background="Gray" Width="700" IsReadOnly="True"/>
 
-            <controls:DataGrid x:Name="dataGridComments" ItemsSource="{x:Bind comments}" AutoGenerateColumns="false" Grid.Row="2" HorizontalAlignment="Center">
+            <controls:DataGrid x:Name="dataGridComments" IsReadOnly="True" ItemsSource="{x:Bind comments}" AutoGenerateColumns="false" Grid.Row="2" HorizontalAlignment="Center">
                 <controls:DataGrid.Columns>
                     <controls:DataGridTextColumn Header="Comment text" Binding="{Binding Comment1}" Width="500"/>
                     <controls:DataGridTextColumn Header="Created" Binding="{Binding CommentTime}" Width="200"/>

@@ -45,22 +45,26 @@ namespace DatalagringUpg2.Views
 
         private void GetIssue(int detailId)
         {
-            cmbLoaderAsync().GetAwaiter();
-            List<Issue> issue = GetDataService.GetIssueDetailsAsync(detailId).GetAwaiter().GetResult();
-
-            foreach (var i in issue)
+            try
             {
-                tbxId.Text = $"Issue id: {i.IssueId}"; 
-                tbxIssue.Text = i.Issue1;
-                cmbCustomer.SelectedItem = i.Customer.CustomerName;               
-                cmbCategory.SelectedItem = i.Category.Category1;
-                cmbSituation.SelectedItem = i.Situation.Situation1;
+                cmbLoaderAsync().GetAwaiter();
+                List<Issue> issue = GetDataService.GetIssueDetailsAsync(detailId).GetAwaiter().GetResult();
 
-                cmbCustom = i.Customer.CustomerName;
-                cmbSit = i.Situation.Situation1;
-                cmbCat = i.Category.Category1;
-                tbxIs = i.Issue1;
+                foreach (var i in issue)
+                {
+                    tbxId.Text = $"Issue id: {i.IssueId}";
+                    tbxIssue.Text = i.Issue1;
+                    cmbCustomer.SelectedItem = i.Customer.CustomerName;
+                    cmbCategory.SelectedItem = i.Category.Category1;
+                    cmbSituation.SelectedItem = i.Situation.Situation1;
+
+                    cmbCustom = i.Customer.CustomerName;
+                    cmbSit = i.Situation.Situation1;
+                    cmbCat = i.Category.Category1;
+                    tbxIs = i.Issue1;
+                }
             }
+            catch { }
 
         }
 
@@ -91,38 +95,61 @@ namespace DatalagringUpg2.Views
         private async void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
 
-            string customerText = null;
-            string situationText = null;
-            string categoryText = null;
-            string issueText = null;
+            try
+            {
+                string customerText = null;
+                string situationText = null;
+                string categoryText = null;
+                string issueText = null;
 
-            if (cmbCustomer.SelectedItem.ToString() != cmbCustom)
-            {
-                customerText = cmbCustomer.SelectedItem.ToString();
-            }
+                if (cmbCustomer.SelectedItem.ToString() != cmbCustom)
+                {
+                    customerText = cmbCustomer.SelectedItem.ToString();
+                }
 
-            if (cmbSituation.SelectedItem.ToString() != cmbSit)
-            {
-                situationText = cmbSituation.SelectedItem.ToString();
-            }
-            if (cmbCategory.SelectedItem.ToString() != cmbCat)
-            {
-                categoryText = cmbCategory.SelectedItem.ToString();
-            }
-            if (tbxIssue.Text != tbxIs)
-            {
-                issueText = tbxIssue.Text;
-            }
+                if (cmbSituation.SelectedItem.ToString() != cmbSit)
+                {
+                    situationText = cmbSituation.SelectedItem.ToString();
+                }
+                if (cmbCategory.SelectedItem.ToString() != cmbCat)
+                {
+                    categoryText = cmbCategory.SelectedItem.ToString();
+                }
+                if (tbxIssue.Text != tbxIs)
+                {
+                    issueText = tbxIssue.Text;
+                }
 
-            string response = await AddDataService.UpdateCustomerAsync(issueText, customerText, situationText, categoryText, detailId);
-            btnUpdateContent(response);
+                string response = await AddDataService.UpdateCustomerAsync(issueText, customerText, situationText, categoryText, detailId);
+                btnUpdateContent(response);
+            }
+            catch { }
  
         }
 
         private async void btnAddComment_Click(object sender, RoutedEventArgs e)
         {
-            string response = await AddDataService.AddCommentToIssueAsync(detailId, tbxAddComment.Text, DateTime.Now);
-            btnCommentContent(response);
+            try
+            {
+                if (tbxAddComment.Text == null)
+                {
+                    string response = await AddDataService.AddCommentToIssueAsync(detailId, tbxAddComment.Text, DateTime.Now);
+                    btnCommentContent(response);
+                    tbxAddComment.Text = "";
+                }
+                else
+                {
+                    tbxAddCommentText();
+                }
+                
+            }
+            catch { }
+        }
+
+        public async void tbxAddCommentText()
+        {
+            tbxAddComment.Text = "Please write something before clicking the button...";
+            await Task.Delay(3000);
             tbxAddComment.Text = "";
         }
 
