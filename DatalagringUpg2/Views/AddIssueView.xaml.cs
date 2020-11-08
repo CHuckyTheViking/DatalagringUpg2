@@ -11,6 +11,7 @@ using Windows.Foundation.Collections;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -40,7 +41,7 @@ namespace DatalagringUpg2.Views
             
         }
 
-        private void btnAddIssue_Click(object sender, RoutedEventArgs e)
+        private async void btnAddIssue_Click(object sender, RoutedEventArgs e)
         {
 
             try
@@ -63,12 +64,15 @@ namespace DatalagringUpg2.Views
                 string category = cmbCategory.SelectedValue.ToString();
                 string situation = cmbSituation.SelectedValue.ToString();
 
-                AddDataService.AddIssueToDBAsync(issue, datetime, comment, picture, cstmer, category, situation).GetAwaiter();
+                await AddDataService.AddIssueToDBAsync(issue, datetime, comment, picture, cstmer, category, situation);
                 ClearFields();
+
+                
             }
             catch { }
 
         }
+
         private void ClearFields()
         {
             tbxissue.Text = "";
@@ -77,6 +81,7 @@ namespace DatalagringUpg2.Views
             cmbCustomers.SelectedItem = null;
             cmbCategory.SelectedItem = null;
             cmbSituation.SelectedItem = null;
+            btnAddIssue.Content = null;
             imageAdd.Source = null;
         }
 

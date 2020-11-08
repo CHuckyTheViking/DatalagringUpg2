@@ -87,10 +87,10 @@ namespace DataAccessLibrary.Services
 
                     db.Issue.Add(newIssue);
                     await db.SaveChangesAsync();
-
                 }
             }
-            catch { }
+            catch {  }
+
         }
 
         

@@ -24,7 +24,6 @@ namespace DataAccessLibrary.Services
 
                     issues = db.Issue.Include(a => a.Customer).Include(b => b.Category).Include(c => c.Situation)
                         .Include(d => d.Picture).Include(e => e.Comment).ToList();
-
                     
                 }
             }

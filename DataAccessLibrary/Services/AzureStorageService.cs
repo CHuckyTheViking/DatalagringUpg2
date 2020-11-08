@@ -16,29 +16,40 @@ namespace DataAccessLibrary.Services
         public static byte[] picture { get; set; }
         public static async Task<string> UploadPictureAsync(StorageFile picture)
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference("issuepictures");
-            await container.CreateIfNotExistsAsync();
-            CloudBlockBlob blob = container.GetBlockBlobReference(picture.Name);
-            await blob.UploadFromFileAsync(picture);
+            try
+            {
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+                CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+                CloudBlobContainer container = blobClient.GetContainerReference("issuepictures");
+
+                await container.CreateIfNotExistsAsync();
+
+                CloudBlockBlob blob = container.GetBlockBlobReference(picture.Name);
+
+                await blob.UploadFromFileAsync(picture);              
+            }
+            catch { }
+
             return picture.Name;
         }
 
         public static async Task<byte[]> GetPictureAsync(string pictureName)
         {
 
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+            try
+            {
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+                CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+                CloudBlobContainer container = blobClient.GetContainerReference("issuepictures");
+                CloudBlockBlob blob = container.GetBlockBlobReference($"{pictureName}");
 
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference("issuepictures");
-            CloudBlockBlob blob = container.GetBlockBlobReference($"{pictureName}");
+                await blob.FetchAttributesAsync();
+                long fileByteLength = blob.Properties.Length;
+                picture = new byte[fileByteLength];
 
-            await blob.FetchAttributesAsync();
-            long fileByteLength = blob.Properties.Length;
-            picture = new byte[fileByteLength];
-
-            await blob.DownloadToByteArrayAsync(picture, 0);
+                await blob.DownloadToByteArrayAsync(picture, 0);
+            }
+            catch { }
 
             return picture;
 
