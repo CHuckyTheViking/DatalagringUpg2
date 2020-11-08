@@ -9,7 +9,9 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
@@ -31,7 +33,14 @@ namespace DataAccessLibrary.Services
 
                 StorageFile file = await picker.PickSingleFileAsync();
                 
-                pictureName = await AzureStorageService.UploadPictureAsync(file);
+                StorageFolder mainFolder = ApplicationData.Current.LocalFolder;
+
+                Guid guid = Guid.NewGuid();
+                StorageFile file2 = await file.CopyAsync(mainFolder, guid.ToString());
+
+                pictureName = await AzureStorageService.UploadPictureAsync(file2);
+
+                await file2.DeleteAsync();
 
             }
             catch { }

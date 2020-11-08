@@ -25,7 +25,7 @@ namespace DataAccessLibrary.Services
                 await container.CreateIfNotExistsAsync();
 
                 CloudBlockBlob blob = container.GetBlockBlobReference(picture.Name);
-
+                
                 await blob.UploadFromFileAsync(picture);              
             }
             catch { }

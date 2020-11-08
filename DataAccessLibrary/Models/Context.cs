@@ -26,7 +26,7 @@ namespace DataAccessLibrary.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=tcp:jesper-sqldatabase.database.windows.net,1433;Initial Catalog=upg2dbjesperm;Persist Security Info=False;User ID=SqlAdmin;Password=XXXXXX;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30");
+                optionsBuilder.UseSqlServer("Server=tcp:jesper-sqldatabase.database.windows.net,1433;Initial Catalog=upg2dbjesperm;Persist Security Info=False;User ID=SqlAdmin;Password=XXXXXXX;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30");
             }
         }
 
