@@ -30,8 +30,7 @@ namespace DatalagringUpg2.Views
     /// </summary>
     public sealed partial class AddIssueView : Page
     {
-        public static byte[] image { get; set; }
-        public static string path { get; set; }
+        public static string pictureName { get; set; }
 
 
         public AddIssueView()
@@ -50,7 +49,7 @@ namespace DatalagringUpg2.Views
                 string issue = tbxissue.Text;
                 DateTime datetime = DateTime.Now;
                 string comment = tbxcomment.Text;
-                byte[] picture = image;
+                string picture = pictureName;
 
                 if (cmbCustomers.SelectedItem == null)
                 {
@@ -122,12 +121,15 @@ namespace DatalagringUpg2.Views
 
         private async void btnAddPicture_Click(object sender, RoutedEventArgs e)
         {
+            
             try
             {
-                image = await FilePicker.FilePickerAsync();
-                if (image != null)
+                pictureName = await FilePicker.FilePickerAsync();
+                if (pictureName != null)
                 {
-                    imageAdd.Source = ByteArrayToImageAsync(image).Result;
+
+                   byte[] picture = await AzureStorageService.GetPictureAsync(pictureName);
+                   imageAdd.Source = await ByteArrayToImageAsync(picture);
                 }
             }
             catch { }

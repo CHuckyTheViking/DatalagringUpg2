@@ -12,7 +12,7 @@ namespace DataAccessLibrary.Models
         public int PictureId { get; set; }
         [Required]
         [Column("picture")]
-        public byte[] Picture1 { get; set; }
+        public string Picture1 { get; set; }
         [Column("issue_id")]
         public int IssueId { get; set; }
 

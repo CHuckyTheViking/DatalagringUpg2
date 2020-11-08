@@ -10,7 +10,7 @@ namespace DataAccessLibrary.Services
 {
     public class AddDataService
     {
-        public static async Task AddIssueToDBAsync(string issue, DateTime datetime, string comment, byte[] picture, string cstmer, string category, string situation)
+        public static async Task AddIssueToDBAsync(string issue, DateTime datetime, string comment, string picture, string cstmer, string category, string situation)
         {
 
             try

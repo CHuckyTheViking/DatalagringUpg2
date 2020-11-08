@@ -2,6 +2,7 @@
 using DataAccessLibrary.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -28,7 +29,7 @@ namespace DatalagringUpg2.Views
     /// </summary>
     public sealed partial class ItemDetailView : Page
     {
-        List<Comment> comments = new List<Comment>();
+        ObservableCollection<Comment> comments = new ObservableCollection<Comment>();
         private static int detailId { get; set; }
 
         public ItemDetailView()
@@ -39,12 +40,12 @@ namespace DatalagringUpg2.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {            
             detailId = (int)e.Parameter;
-            GetIssue(detailId);
+            GetIssue(detailId).GetAwaiter();
             
         }
 
 
-        private void GetIssue(int detailId)
+        private async Task GetIssue(int detailId)
         {
             try
             {
@@ -63,10 +64,16 @@ namespace DatalagringUpg2.Views
                     picture = i.Picture.ToList();
                     if (picture != null)
                     {
-                        foreach (var p in picture)
+                        try
                         {
-                            imageDetail.Source = ByteArrayToImageAsync(p.Picture1).Result;
+                            foreach (var p in picture)
+                            {
+
+                                byte[] pic = await AzureStorageService.GetPictureAsync(p.Picture1.ToString());
+                                imageDetail.Source = await ByteArrayToImageAsync(pic);
+                            }
                         }
+                        catch { }
                     }
 
                     var comms = i.Comment.ToList();
@@ -78,13 +85,15 @@ namespace DatalagringUpg2.Views
                         }
                     }
 
+
                 }
             }
             catch { }
            
         }
 
-        public async Task<BitmapImage> ByteArrayToImageAsync(byte[] pixeByte)
+
+        public async Task<BitmapImage> ByteArrayToImageAsync(byte[] picture)
         {
             BitmapImage image = new BitmapImage();
             try
@@ -92,7 +101,7 @@ namespace DatalagringUpg2.Views
                 using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
                 {
 
-                    await stream.WriteAsync(pixeByte.AsBuffer());
+                    await stream.WriteAsync(picture.AsBuffer());
                     stream.Seek(0);
                     image.SetSource(stream);
 
